@@ -14,6 +14,19 @@ export default defineConfig(({ mode }) => {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
       },
+      optimizeDeps: {
+        exclude: ['@google/genai']
+      },
+      build: {
+        rollupOptions: {
+          external: ['@google/genai'],
+          output: {
+            paths: {
+              '@google/genai': 'https://esm.sh/@google/genai@^1.41.0'
+            }
+          }
+        }
+      },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
